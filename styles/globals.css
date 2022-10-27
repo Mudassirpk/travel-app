@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: lightgrey;
+}
+
+html {
+  font-size: 10px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.icon-hover {
+  padding: 8px 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.icon-hover:hover {
+  background-color: lightgrey;
+}
+
+.height-cal {
+  height: calc(100vh - 90px);
+}
