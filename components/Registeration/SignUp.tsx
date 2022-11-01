@@ -13,6 +13,7 @@ type formType = {
 
 const SignUp: React.FC<Props> = ({ toggleForm }) => {
   const [isPasswordMatched, setIsPasswordMatched] = useState<boolean>(true);
+  const [signUp, setSignUp] = useState<boolean>(false);
 
   const [signUPData, setSignUpData] = useState<formType>({
     name: "",
@@ -30,23 +31,37 @@ const SignUp: React.FC<Props> = ({ toggleForm }) => {
   async function submitForm(e: React.SyntheticEvent) {
     e.preventDefault();
     if (signUPData.password === signUPData.cpassword) {
-      setIsPasswordMatched(true)
+      setIsPasswordMatched(true);
       const reponse = await fetch("/api/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/josn;charset=utf-8",
+          "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify(signUPData),
       });
 
       const jsonResponse = await reponse.json();
-      console.log(jsonResponse);
+      if (reponse.status === 201) {
+        setSignUp(true);
+      }
     } else {
       setIsPasswordMatched(false);
     }
   }
 
-  return (
+  return signUp ? (
+    <div className="px-4 py-4 flex flex-col items-center gap-3">
+      <h1 className="text-3xl text-center my-3 font-semibold text-green-800">
+        Account created succesfuly
+      </h1>
+      <button
+        onClick={() => toggleForm()}
+        className="px-3 py-2 bg-blue-900 text-2xl text-white rounded-lg"
+      >
+        Go to login
+      </button>
+    </div>
+  ) : (
     <form onSubmit={submitForm} className="flex flex-col gap-3">
       <h1 className="text-3xl mb-4 text-slate-800 font-semibold text-center">
         Sign Up
