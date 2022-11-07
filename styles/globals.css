@@ -56,6 +56,27 @@ a {
   overflow: hidden;
 }
 
+/* profile information */
+
+.profile-information::-webkit-scrollbar {
+  background-color: white;
+  width: 8px;
+}
+
+.profile-information::-webkit-scrollbar-track {
+  border-radius: 4rem;
+  background: white;
+}
+
+.profile-information::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: lightblue;
+}
+
+.profile-information::-webkit-scrollbar-button {
+  display: none;
+}
+
 @keyframes enlarge {
   0% {
     height: 0;

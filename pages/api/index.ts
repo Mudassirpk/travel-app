@@ -1,28 +1,29 @@
 import { NextApiResponse } from "next";
-import { NextRequest } from "next/server";
 import connection from "../../database/connection";
 import bcryptjs from "bcryptjs";
-const mongoose = require("mongoose");
-const Traveler = mongoose.model("Traveler");
-
-type userType = {
-  name: string;
-  email: string;
-  password: string;
-};
+import Traveler from "./../../database/Models/userModal";
 
 const handler = async (req: Request, res: NextApiResponse<any>) => {
   if (req.method === "POST") {
-    console.log(req.body);
-    const { name, email, password } = req.body;
-    const hashedPassword = await bcryptjs.hash(password, 10);
-    const newTraveler = new Traveler({
-      name: name,
-      email: email,
-      password: hashedPassword,
-    });
-    newTraveler.save();
-    res.status(201).send(newTraveler);
+    try {
+      const { name, email, password } = req.body;
+      const hashedPassword = await bcryptjs.hash(password, 10);
+      const newTraveler = new Traveler({
+        name: name,
+        email: email,
+        password: hashedPassword,
+      });
+      const savedTraveler = await newTraveler.save();
+      res.status(201).send(savedTraveler);
+    } catch (err: any) {
+      if (err.code === 11000) {
+        res.status(400).json({
+          type: "error",
+          code: 11000,
+          messege: err.messege,
+        });
+      }
+    }
   }
 };
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useRouter } from "next/router";
 type Props = {
   toggleForm: Function;
 };
@@ -9,6 +9,8 @@ type formType = {
   password: string;
 };
 const Login: React.FC<Props> = ({ toggleForm }) => {
+  const router = useRouter();
+  const [isValidCredentials, setIsValidCredentials] = useState<boolean>(true);
   const [loginData, setLoginData] = useState<formType>({
     email: "",
     password: "",
@@ -20,9 +22,22 @@ const Login: React.FC<Props> = ({ toggleForm }) => {
     setLoginData({ ...loginData, [target.id]: target.value });
   }
 
-  function submitLoginForm(e: React.SyntheticEvent) {
+  async function submitLoginForm(e: React.SyntheticEvent) {
     e.preventDefault();
-    console.log(loginData);
+    const response = await fetch("/api/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(loginData),
+    });
+    const jsonResponse = await response.json();
+    if (response.status === 200) {
+      localStorage.setItem("tapp_eAt", JSON.stringify(jsonResponse));
+      router.push("/home");
+    } else if (response.status === 404) {
+      setIsValidCredentials(false);
+    }
   }
 
   return (
@@ -57,7 +72,15 @@ const Login: React.FC<Props> = ({ toggleForm }) => {
           id="password"
         />
       </label>
-      <button className="hover:bg-blue-800 text-xl px-4 py-2 rounded-lg bg-blue-900 text-white font-semibold">
+      {!isValidCredentials ? (
+        <p className="text-2xl text-red-500 mx-4">
+          ** Invalid <strong>email</strong> or <strong>passsword</strong>
+        </p>
+      ) : null}
+      <button
+        type="submit"
+        className="hover:bg-blue-800 text-xl px-4 py-2 rounded-lg bg-blue-900 text-white font-semibold"
+      >
         Login
       </button>
       <span

@@ -14,7 +14,7 @@ type formType = {
 const SignUp: React.FC<Props> = ({ toggleForm }) => {
   const [isPasswordMatched, setIsPasswordMatched] = useState<boolean>(true);
   const [signUp, setSignUp] = useState<boolean>(false);
-
+  const [dupEmailError, setDupEmailError] = useState<boolean>(false);
   const [signUPData, setSignUpData] = useState<formType>({
     name: "",
     email: "",
@@ -32,7 +32,7 @@ const SignUp: React.FC<Props> = ({ toggleForm }) => {
     e.preventDefault();
     if (signUPData.password === signUPData.cpassword) {
       setIsPasswordMatched(true);
-      const reponse = await fetch("/api/", {
+      const response = await fetch("/api/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -40,9 +40,13 @@ const SignUp: React.FC<Props> = ({ toggleForm }) => {
         body: JSON.stringify(signUPData),
       });
 
-      const jsonResponse = await reponse.json();
-      if (reponse.status === 201) {
+      const jsonResponse = await response.json();
+      if (response.status === 201) {
         setSignUp(true);
+      } else if (response.status === 400 && jsonResponse.code === 11000) {
+        setDupEmailError(true);
+      } else {
+        setDupEmailError(false);
       }
     } else {
       setIsPasswordMatched(false);
@@ -79,7 +83,14 @@ const SignUp: React.FC<Props> = ({ toggleForm }) => {
       </label>
 
       <label htmlFor="email" className="text-xl flex flex-col gap-3">
-        Email
+        <div>
+          Email
+          {dupEmailError ? (
+            <span className="text-2xl text-red-500 mx-4">
+              ** Email already exists
+            </span>
+          ) : null}
+        </div>
         <input
           onChange={fillSignUpData}
           value={signUPData.email}

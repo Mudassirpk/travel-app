@@ -1,5 +1,9 @@
-const Divider: React.FC = () => {
-  return <div className="h-[1px] w-full bg-blue-200"></div>;
+type Props = {
+  customClass: string | undefined;
+};
+
+const Divider: React.FC<Props> = ({ customClass }) => {
+  return <div className={`h-[1px] w-full bg-blue-200 ${customClass}`}></div>;
 };
 
 export default Divider;

@@ -1,9 +1,14 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const commentSchema = new mongoose.Schema({
-  content: String,
-  timestamps: true,
-  commenter: String,
-});
+const commentSchema = new mongoose.Schema(
+  {
+    content: String,
+    commenter: String,
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model("Comment", commentSchema);
+export default mongoose.models.comment ||
+  mongoose.model("comment", commentSchema);
