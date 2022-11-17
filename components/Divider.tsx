@@ -1,5 +1,5 @@
 type Props = {
-  customClass: string | undefined;
+  customClass: string | null;
 };
 
 const Divider: React.FC<Props> = ({ customClass }) => {

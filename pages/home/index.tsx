@@ -1,19 +1,16 @@
 import Head from "next/head";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { useEffect, useState, useContext } from "react";
-import { useRouter } from "next/router";
-import Left from "../components/Home/Left/Left";
-import Feed from "../components/Home/Feed/Feed";
-import Right from "../components/Home/Right/Right";
-
-import { dataContext } from "../Helper/DataProvider";
+import Left from "../../components/Home/Left/Left";
+import Feed from "../../components/Home/Feed/Feed";
+import Right from "../../components/Home/Right/Right";
+import dataContext from "../../Helper/dataContext";
 
 export default function Home() {
   const travlerData: any = useContext(dataContext);
-  const { dataSetter, data } = travlerData;
+  const { dataSetter } = travlerData;
 
   const [userName, setUserName] = useState<string>("");
-  const router = useRouter();
 
   useEffect(() => {
     async function getUser() {
@@ -35,8 +32,7 @@ export default function Home() {
 
     getUser();
 
-    console.log("useEffect");
-  }, [router, dataSetter]);
+  }, []);
 
   return (
     <div>

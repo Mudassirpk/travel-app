@@ -1,9 +1,26 @@
 import Head from "next/head";
-
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import UserLogReg from "../components/Registeration/UserLogReg";
 
 export default function Registeration() {
-  return (
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  useEffect(() => {
+    const authInfo = JSON.parse(localStorage.getItem("tapp_eAt") as string);
+    if (authInfo?.token) {
+      setIsLoggedIn(true);
+      router.push("/home");
+    }
+  }, [router]);
+
+  return isLoggedIn ? (
+    <div className="h-screen w-full flex items-center justify-center">
+      <h1 className="text-4xl text-blue-900">
+        You are already logged in redirecting to homepage ....
+      </h1>
+    </div>
+  ) : (
     <div>
       <Head>
         <title>TravelBook</title>

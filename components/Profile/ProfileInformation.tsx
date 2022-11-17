@@ -33,7 +33,7 @@ const ProfileInformation: React.FC<Props> = ({ tranformValue }) => {
             <h1 className="text-4xl my-6 text-slate-800 mx-4 font-semibold">
               Followers
             </h1>
-            <Divider customClass={undefined} />
+            <Divider customClass={null} />
             <Persons>
               <Person name="Javed Karim" followers={400} />
               <Person name="Sara Khan" followers={400} />
@@ -52,7 +52,7 @@ const ProfileInformation: React.FC<Props> = ({ tranformValue }) => {
             <h1 className="text-4xl my-6 text-slate-800 mx-4 font-semibold">
               Followers
             </h1>
-            <Divider customClass={undefined} />
+            <Divider customClass={null} />
             <Persons>
               <Person name="Javed Karim" followers={400} />
               <Person name="Sara Khan" followers={400} />

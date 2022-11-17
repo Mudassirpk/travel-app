@@ -4,7 +4,7 @@ const About: React.FC = () => {
   return (
     <div className="w-full text-center">
       <h1 className="text-4xl my-6 text-slate-800 mx-4 font-semibold">About</h1>
-      <Divider customClass={undefined} />
+      <Divider customClass={null} />
       <div className="py-8 flex flex-col gap-5">
         <InfoBox heading="Name" content="Mudassir Sarfraz Khan" />
         <InfoBox heading="Date of Birth" content="3 September 2002" />
