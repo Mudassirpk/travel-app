@@ -5,6 +5,7 @@ import About from "./About";
 import Persons from "./Persons";
 import Person from "./Person";
 import Divider from "./../Divider";
+
 type Props = {
   tranformValue: number;
 };
@@ -34,36 +35,16 @@ const ProfileInformation: React.FC<Props> = ({ tranformValue }) => {
               Followers
             </h1>
             <Divider customClass={null} />
-            <Persons>
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Sara Khan" followers={400} />
-              <Person name="Sami-Ullah" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-            </Persons>
+            <Persons kind="followers" />
           </div>
 
           {/* 4 - Following */}
           <div className="w-full p-4">
             <h1 className="text-4xl my-6 text-slate-800 mx-4 font-semibold">
-              Followers
+              Following
             </h1>
             <Divider customClass={null} />
-            <Persons>
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Sara Khan" followers={400} />
-              <Person name="Sami-Ullah" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-              <Person name="Javed Karim" followers={400} />
-            </Persons>
+            <Persons kind="following" />
           </div>
         </div>
       </div>

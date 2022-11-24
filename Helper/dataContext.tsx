@@ -1,6 +1,4 @@
-import {
-  createContext,
-} from "react";
+import { createContext } from "react";
 
 type Props = {
   children: any;
@@ -9,9 +7,8 @@ type Props = {
 export type dataTypes = {
   dataSetter: Function;
   data: object | null;
+  feedData: Array<object> | null;
 };
 const dataContext = createContext<dataTypes | null>(null);
 
 export default dataContext;
-
-

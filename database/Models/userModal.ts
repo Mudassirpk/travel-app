@@ -8,7 +8,7 @@ const travelerSchema = new mongoose.Schema({
   },
   password: String,
   posts: {
-    type: [String],
+    type: [{ type: "ObjectId", ref: "post" }],
   },
   followers: [String],
   following: [String],

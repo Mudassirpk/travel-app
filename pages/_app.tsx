@@ -5,12 +5,13 @@ import { useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [data, setData] = useState<object>({});
-  const dataSetter = (data: object) => {
+  const [feedData, setFeedData] = useState<Array<object>>([]);
+  const dataSetter = (data: object, feedData: Array<object>) => {
     setData(data);
+    setFeedData(feedData);
   };
-  console.log(data)
   return (
-    <dataContext.Provider value={{data,dataSetter}}>
+    <dataContext.Provider value={{ data, dataSetter, feedData }}>
       <Component {...pageProps} />
     </dataContext.Provider>
   );

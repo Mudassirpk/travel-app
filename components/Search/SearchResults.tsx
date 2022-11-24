@@ -15,7 +15,8 @@ const SearchResults: React.FC<Props> = ({ results }) => {
           ? results.map((result: any) => {
               return (
                 <Result
-                  key={result.key}
+                  key={result._id}
+                  id={result._id}
                   name={result.name}
                   followers={result.followers.length}
                 />

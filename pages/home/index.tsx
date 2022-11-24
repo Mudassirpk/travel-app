@@ -25,13 +25,13 @@ export default function Home() {
         });
 
         const traveler: any = await response.json();
-        dataSetter(traveler);
-        setUserName(traveler?.name);
+        console.log(traveler);
+        dataSetter(traveler.foundTraveler, traveler.feedData);
+        setUserName(traveler.foundTraveler.name);
       }
     }
 
     getUser();
-
   }, []);
 
   return (

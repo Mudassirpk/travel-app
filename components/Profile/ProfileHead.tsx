@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BsCamera } from "react-icons/bs";
 
 const ProfileHead = () => {
   return (
@@ -12,13 +13,16 @@ const ProfileHead = () => {
         />
       </div>
       <div className="bottom-[-10rem] flex gap-8 items-center w-full absolute h-64 pl-[10rem] pr-[2rem]">
-        <div className="h-full aspect-square rounded-[50%] overflow-hidden relative">
+        <div className="h-full aspect-square  relative">
           <Image
             src="/images/user.jpg"
-            className="object-cover"
+            className="object-cover rounded-[50%]"
             alt="profile - user"
             fill={true}
           />
+          <div className="absolute bottom-[2rem] bg-gray-200 hover:bg-gray-300 cursor-pointer transition-color duration-[.3s] rounded-xl px-2 py-2 z-50 right-0 text-5xl">
+            <BsCamera  className="text-blue-900"/>
+          </div>
         </div>
         <div className="flex-1 pt-14">
           <p className="text-[20px] text-slate-900">Mudassir Khan</p>

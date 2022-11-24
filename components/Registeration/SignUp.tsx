@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import AdditionalInformation from './AdditionalInformation'
 type Props = {
   toggleForm: Function;
 };
@@ -13,7 +13,7 @@ type formType = {
 
 const SignUp: React.FC<Props> = ({ toggleForm }) => {
   const [isPasswordMatched, setIsPasswordMatched] = useState<boolean>(true);
-  const [signUp, setSignUp] = useState<boolean>(false);
+  const [signUp, setSignUp] = useState<boolean>(true);
   const [dupEmailError, setDupEmailError] = useState<boolean>(false);
   const [signUPData, setSignUpData] = useState<formType>({
     name: "",
@@ -54,17 +54,7 @@ const SignUp: React.FC<Props> = ({ toggleForm }) => {
   }
 
   return signUp ? (
-    <div className="px-4 py-4 flex flex-col items-center gap-3">
-      <h1 className="text-3xl text-center my-3 font-semibold text-green-800">
-        Account created succesfuly
-      </h1>
-      <button
-        onClick={() => toggleForm()}
-        className="px-3 py-2 bg-blue-900 text-2xl text-white rounded-lg"
-      >
-        Go to login
-      </button>
-    </div>
+    <AdditionalInformation />
   ) : (
     <form onSubmit={submitForm} className="flex flex-col gap-3">
       <h1 className="text-3xl mb-4 text-slate-800 font-semibold text-center">

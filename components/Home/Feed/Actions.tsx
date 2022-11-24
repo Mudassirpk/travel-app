@@ -31,7 +31,7 @@ const Actions: React.FC = () => {
           Add a premier
         </div>
       </div>
-      <Divider />
+      <Divider customClass={null} />
       {experienceModal ? (
         <ExperienceModal modalToggler={toggleExperienceModal} />
       ) : null}

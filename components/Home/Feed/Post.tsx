@@ -4,11 +4,23 @@ import {
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 import { AiFillLike } from "react-icons/ai";
-
+import { GoLocation } from "react-icons/go";
 import Comments from "./Comments";
 import Divider from "../../Divider";
 
-const Post: React.FC = () => {
+type Props = {
+  location: string;
+  experience: string;
+  image: string;
+  poster_name: string;
+};
+
+const Post: React.FC<Props> = ({
+  location,
+  experience,
+  image,
+  poster_name,
+}) => {
   return (
     <div className="w-[85%] mx-auto">
       <div className="w-full flex gap-5 items-center mb-6">
@@ -21,8 +33,8 @@ const Post: React.FC = () => {
           />
         </div>
         <div className="flex-1">
-          <p className="cursor-pointer hover:underline text-slate-800">
-            Mskhan
+          <p className="cursor-pointer text-2xl hover:underline text-slate-800">
+            {poster_name}
           </p>
           <p className="text-[12px] text-slate-700">2 days ago</p>
         </div>
@@ -30,21 +42,18 @@ const Post: React.FC = () => {
       </div>
       <div>
         <p className="text-[14px] py-2 text-gray-800 rounded-lg">
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using Content here, content here making it look
-          like readable English. Many desktop publishing packages and web page
-          editors now use Lorem Ipsum as their default model text, and a search
-          for lorem ipsum will uncover many web sites still in their infancy.
+          {experience}
           <span className="mx-4 cursor-pointer text-black hover:underline">
             See more
           </span>
         </p>
+        <p className="text-2xl flex items-center gap-2 my-4 font-semibold text-blue-900">
+          <GoLocation /> <span>{location}</span>
+        </p>
       </div>
       {/*post image*/}
       <div className="relative w-full h-[280px] my-6 rounded-lg overflow-hidden">
-        <Image alt="post image" src="/images/swt.jpg" fill={true} />
+        <Image alt="post image" src={image} fill={true} />
       </div>
       {/*viewer's action e.g like and comment*/}
       <div className="py-2 flex gap-2 my-3">

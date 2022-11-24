@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 const postSchema = new mongoose.Schema(
   {
-    content: String,
+    publisher: String,
+    poster: String,
+    location: String,
+    experience: String,
     image: String,
     comments: [String],
     likes: Number,
