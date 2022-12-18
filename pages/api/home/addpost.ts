@@ -33,25 +33,30 @@ const handler = nc(onError);
 handler.use(upload.single("photo"));
 handler.use(auth);
 
-handler.post(async (req: Request, res: NextApiResponse) => {
+handler.post(async (request: Express.Request, res: NextApiResponse) => {
+  const req: any = request;
   const body: any = req.body;
   const text = JSON.parse(body.text);
   try {
+    const poster = await Traveler.findById({ _id: text.poster });
     const newPost = new postModel({
       publisher: text.poster,
       location: text.location,
       experience: text.experience,
       image: `/images/${req.file?.filename}`,
-      poster: text.poster_name,
+      poster: poster.name,
+      likes: 0,
+      likers: [],
+      poster_image: text.poster_image,
     });
-    console.log(newPost);
     await Traveler.findOneAndUpdate(
       { _id: text.poster },
-      { posts: newPost._id },
+      { posts: newPost._id, $push: { media: "/images/" + req.file.filename } },
       { new: true }
     );
 
-    await newPost.save();
+    const savedPost = await newPost.save();
+    res.status(201).send(savedPost);
   } catch (err) {
     console.log(err);
   }

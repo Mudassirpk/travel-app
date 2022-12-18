@@ -20,7 +20,7 @@ const SelectMenu: React.FC<Props> = ({ transformAction }) => {
       if (element.tagName === "P") {
         setTransFormValue(rect.left);
         setCurrentWidth(element.clientWidth);
-        transformAction(parseInt(element.id) * 25);
+        transformAction(parseInt(element.id) * 20);
       }
     });
   }, [transformAction]);
@@ -35,6 +35,7 @@ const SelectMenu: React.FC<Props> = ({ transformAction }) => {
         <SelectItem option="About" id="1" />
         <SelectItem option="Followers" id="2" />
         <SelectItem option="Following" id="3" />
+        <SelectItem option="Media" id="4" />
       </div>
       <div className="w-full relative">
         <div

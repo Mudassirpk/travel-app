@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import Head from "next/head";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import Left from "../../components/Home/Left/Left";
 import SearchResults from "../../components/Search/SearchResults";
 
@@ -19,7 +19,6 @@ export default function Search() {
   const person = router.query.person;
 
   useEffect(() => {
-    console.log("useEffect [person]");
     setUserName(data.name);
 
     async function fetchTravellers() {
@@ -44,7 +43,7 @@ export default function Search() {
       </Head>
       <Header />
       <main className="flex">
-        <Left userName={userName} />
+        <Left />
         <SearchResults results={searchResults} />
       </main>
     </div>

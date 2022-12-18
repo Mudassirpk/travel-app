@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import ProfileHead from "../components/Profile/ProfileHead";
 import Divider from "../components/Divider";
 import ProfileBody from "../components/Profile/ProfileBody";

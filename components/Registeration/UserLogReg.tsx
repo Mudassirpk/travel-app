@@ -4,7 +4,6 @@ import SignUp from "./SignUp";
 
 const UserLogReg: React.FC = () => {
   const [formtoggler, setFormtoggler] = useState(false);
-
   function toggleForm() {
     setFormtoggler(!formtoggler);
   }

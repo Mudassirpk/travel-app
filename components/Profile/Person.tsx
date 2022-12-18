@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import {BsCamera} from 'react-icons/bs'
+
 type Props = {
   name: string;
   followers: number;

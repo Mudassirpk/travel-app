@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AdditionalInformation from './AdditionalInformation'
+import AdditionalInformation from "./AdditionalInformation";
 type Props = {
   toggleForm: Function;
 };
@@ -13,7 +13,7 @@ type formType = {
 
 const SignUp: React.FC<Props> = ({ toggleForm }) => {
   const [isPasswordMatched, setIsPasswordMatched] = useState<boolean>(true);
-  const [signUp, setSignUp] = useState<boolean>(true);
+  const [signUp, setSignUp] = useState<boolean>(false);
   const [dupEmailError, setDupEmailError] = useState<boolean>(false);
   const [signUPData, setSignUpData] = useState<formType>({
     name: "",
@@ -42,6 +42,7 @@ const SignUp: React.FC<Props> = ({ toggleForm }) => {
 
       const jsonResponse = await response.json();
       if (response.status === 201) {
+        localStorage.setItem("signup_email", signUPData.email);
         setSignUp(true);
       } else if (response.status === 400 && jsonResponse.code === 11000) {
         setDupEmailError(true);
@@ -54,7 +55,7 @@ const SignUp: React.FC<Props> = ({ toggleForm }) => {
   }
 
   return signUp ? (
-    <AdditionalInformation />
+    <AdditionalInformation toggleForm={toggleForm} />
   ) : (
     <form onSubmit={submitForm} className="flex flex-col gap-3">
       <h1 className="text-3xl mb-4 text-slate-800 font-semibold text-center">

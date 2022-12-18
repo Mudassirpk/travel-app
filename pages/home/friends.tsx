@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
-import Header from "./../../components/Header";
+import Header from "../../components/Header/Header";
 import Left from "../../components/Home/Left/Left";
 import dataContext from "../../Helper/dataContext";
 import FriendsSection from "../../components/Friends/Friends";

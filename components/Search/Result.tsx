@@ -16,10 +16,13 @@ const Result: React.FC<Props> = ({ name, followers, id }) => {
   const { data } = traveller;
   async function followTraveller() {
     const response = await useFollow(id, data._id);
+    if (response?.status === 201) {
+      setFollowButton(true);
+    }
   }
 
   useEffect(() => {
-    if (data.following.include(id)) {
+    if (data.following.includes(id)) {
       setFollowButton(true);
     }
   }, []);
@@ -40,15 +43,18 @@ const Result: React.FC<Props> = ({ name, followers, id }) => {
         <p>{followers} Followers</p>
       </div>
       <div className="px-5 flex items-center justify-center">
-        <button
-          onClick={followTraveller}
-          className="bg-blue-500 px-4 py-2 text-xl hover:bg-blue-600 cursor-pointer text-white font-semibold rounded-lg"
-        >
-          Follow
-        </button>
-        <p className="px-4 py-2 text-xl bg-grey-400 text-slate-800">
-          Following
-        </p>
+        {!followButton ? (
+          <button
+            onClick={followTraveller}
+            className="bg-blue-500 px-4 py-2 text-xl hover:bg-blue-600 cursor-pointer text-white font-semibold rounded-lg"
+          >
+            Follow
+          </button>
+        ) : (
+          <p className="px-4 py-2 text-xl bg-grey-400 text-slate-800">
+            Following
+          </p>
+        )}
       </div>
     </div>
   );

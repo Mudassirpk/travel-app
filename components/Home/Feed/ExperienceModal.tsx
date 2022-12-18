@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-
+import { AiFillCheckCircle } from "react-icons/ai";
+import { useRouter } from "next/router";
 import { BsFileEarmarkImage, BsChevronUp } from "react-icons/bs";
 type Props = {
   modalToggler: Function;
@@ -8,8 +9,11 @@ type Props = {
 import dataContext from "../../../Helper/dataContext";
 
 const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
+  const router = useRouter()
+
+  const [postSaved, setPostSaved] = useState<boolean>(false);
   const traveller: any = useContext(dataContext);
-  const { data } = traveller;
+  const { data, dataSetter } = traveller;
   const [modalFields, setModalFields] = useState({
     location: "",
     experience: "",
@@ -46,6 +50,7 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
             ...modalFields,
             email: jsoneAt.email,
             poster: data._id,
+            poster_image:data.profilePhoto
           })
         );
 
@@ -57,14 +62,19 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
           },
           body: formData,
         });
-
-        console.log(response);
+        const jsonResponse = await response.json();
+        if (response.status === 201) {
+          setPostSaved(true);
+          dataSetter(null, null, jsonResponse, "feed");
+          setTimeout(modalToggler, 2000);
+          router.push('/')
+        }
       }
     }
   }
 
-  return (
-    <div className="experience-modal transition-all duration-500 z-10 absolute w-[500px] h-auto p-6 bg-white shadow-slate-400 shadow-xl rounded-xl">
+  return !postSaved ? (
+    <div className="experience-modal xsm:absolute left-0 transition-all duration-500 z-10 absolute w-[500px] xsm:w-full h-auto p-6 bg-white shadow-slate-400 shadow-xl rounded-xl">
       <div className="flex items-center justify-between">
         <h1 className="text-center font-semibold text-3xl text-slate-800">
           Create new experience
@@ -117,6 +127,13 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
           Post
         </button>
       </form>
+    </div>
+  ) : (
+    <div className="experience-modal xsm:absolute left-0 flex  items-center justify-center gap-4 py-[4rem] transition-all duration-500 z-10 absolute w-[500px] xsm:w-full h-auto p-6 bg-white shadow-slate-400 shadow-xl rounded-xl">
+      <AiFillCheckCircle className="text-5xl text-center text-blue-900" />
+      <p className="text-center text-5xl text-blue-900 font-semibold">
+        Post Added Successfully
+      </p>
     </div>
   );
 };

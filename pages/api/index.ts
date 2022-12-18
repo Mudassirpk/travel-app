@@ -1,9 +1,10 @@
 import { NextApiResponse } from "next";
+import Express from "express";
 import connection from "../../database/connection";
 import bcryptjs from "bcryptjs";
 import Traveler from "./../../database/Models/userModal";
 
-const handler = async (req: Request, res: NextApiResponse<any>) => {
+const handler = async (req: Express.Request, res: NextApiResponse<any>) => {
   if (req.method === "POST") {
     try {
       const { name, email, password } = req.body;

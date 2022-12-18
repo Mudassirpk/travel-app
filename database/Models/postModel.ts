@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const postSchema = new mongoose.Schema(
   {
     publisher: String,
@@ -6,8 +7,20 @@ const postSchema = new mongoose.Schema(
     location: String,
     experience: String,
     image: String,
-    comments: [String],
+    comments: {
+      type: [
+        {
+          text: String,
+          commentor_id: String,
+          post_id: String,
+          commentor_photo: String,
+          commentor_name: String,
+        },
+      ],
+    },
     likes: Number,
+    likers: [String],
+    poster_image: String,
   },
   { timestamps: true }
 );

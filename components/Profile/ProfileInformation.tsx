@@ -3,8 +3,8 @@ import Posts from "../Home/Feed/Posts";
 import DestinationsTravelled from "./DestinationsTravlled";
 import About from "./About";
 import Persons from "./Persons";
-import Person from "./Person";
 import Divider from "./../Divider";
+import Media from "./Media";
 
 type Props = {
   tranformValue: number;
@@ -15,7 +15,7 @@ const ProfileInformation: React.FC<Props> = ({ tranformValue }) => {
     <section className="w-full flex gap-5 h-[100vh]">
       <div className="flex-1 h-full overflow-hidden">
         <div
-          className="w-[400%] grid grid-cols-4 h-full transition-transform duration-100"
+          className="w-[500%] grid grid-cols-5 h-full transition-transform duration-100"
           style={{ transform: `translateX(${-tranformValue}%)` }}
         >
           {/* 1 - Feed */}
@@ -46,9 +46,18 @@ const ProfileInformation: React.FC<Props> = ({ tranformValue }) => {
             <Divider customClass={null} />
             <Persons kind="following" />
           </div>
+
+          {/* {5 - media} */}
+          <div className="w-full p-4">
+            <h1 className="text-4xl my-6 text-slate-800 mx-4 font-semibold">
+              Following
+            </h1>
+            <Divider customClass={null} />
+            <Media />
+          </div>
         </div>
       </div>
-      <div className="w-[300px]">
+      <div className="w-[300px] md:hidden">
         <DestinationsTravelled />
       </div>
     </section>

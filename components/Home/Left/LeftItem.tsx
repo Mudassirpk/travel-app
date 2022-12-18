@@ -14,7 +14,7 @@ const LeftItem: React.FC<Props> = ({ title, image, icon }) => {
           <Image
             className="object-cover"
             alt="user / you"
-            src="/images/user.jpg"
+            src={image}
             fill={true}
           />
         ) : (

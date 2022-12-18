@@ -1,21 +1,52 @@
 import Comment from "./Comment";
+import { useState, useEffect } from "react";
+type Props = {
+  comments: Array<object>;
+  isLoading: boolean;
+};
 
-const Comments: React.FC = () => {
-  return (
-    <div className="flex flex-col gap-10 mt-10">
-      <Comment
-        name="Mskhan"
-        content="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-      />
-      <Comment
-        name="dale Lion"
-        content="It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-      />
-      <p className="text-xl mb-4 font-semibold cursor-pointer text-slate-700 hover:underline">
-        View more comments
-      </p>
-    </div>
-  );
+import Loader from "../../../Helper/Loader";
+
+const Comments: React.FC<Props> = ({ comments, isLoading }) => {
+  // const [comments, setComments] = useState<Array<object>>([]);
+  const [visibleNumber, setVisibleNumber] = useState<number>(3);
+  const utility_array = [...Array(visibleNumber)];
+
+  function adjustVisibleNumber() {
+    if (visibleNumber + 3 < comments.length) {
+      setVisibleNumber(visibleNumber + 3);
+    } else if (visibleNumber + 3 > comments.length) {
+      setVisibleNumber(visibleNumber + (comments.length - visibleNumber));
+    }
+  }
+
+  // useEffect(() => {
+  //   setComments(post_comments);
+  // }, [post_comments]);
+  if (comments.length > 0) {
+    return (
+      <div className="flex flex-col gap-10 mt-10 xsm:px-5">
+        {isLoading?<Loader size={2} />:null}
+        {utility_array.map((comment: any, index: any) => {
+          return comments[index] ? (
+            <Comment
+              content={comments[index].text}
+              name={comments[index].commentor_name}
+              commentor_image={comments[index].commentor_photo}
+            />
+          ) : null;
+        })}
+        <p
+          onClick={adjustVisibleNumber}
+          className="text-xl mb-4 font-semibold cursor-pointer text-slate-700 hover:underline"
+        >
+          View more comments
+        </p>
+      </div>
+    );
+  } else {
+    return <p>No comments available.</p>;
+  }
 };
 
 export default Comments;

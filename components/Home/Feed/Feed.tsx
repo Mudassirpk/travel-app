@@ -6,7 +6,7 @@ const Feed: React.FC = () => {
   return (
     <section className="scrollbar-hidden flex-1 flex flex-col overflow-y-scroll height-cal">
       <Actions />
-      <Divider />
+      <Divider customClass={null} />
       <Posts />
     </section>
   );

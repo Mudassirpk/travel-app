@@ -3,7 +3,8 @@ import connection from "../../../database/connection";
 import Traveler from "../../../database/Models/userModal";
 import jwt, { Secret } from "jsonwebtoken";
 import postModel from "../../../database/Models/postModel";
-export async function handler(req: Request, res: NextApiResponse<any>) {
+import Express from "express";
+export async function handler(req: Express.Request, res: NextApiResponse<any>) {
   if (req.method === "POST") {
     const body: any = req.body;
     const email: string = body.email;
@@ -19,7 +20,6 @@ export async function handler(req: Request, res: NextApiResponse<any>) {
           const followers = foundTraveler.followers;
           const following = foundTraveler.following;
           const mergedIds = followers.concat(following, foundTraveler._id);
-          console.log(mergedIds);
           const feedData = await postModel
             .find({
               publisher: { $in: mergedIds },
@@ -27,12 +27,13 @@ export async function handler(req: Request, res: NextApiResponse<any>) {
             .sort({ createdAt: -1 });
           res.status(200).send({ foundTraveler, feedData });
         }
+      } else {
+        res.status(404).send("not-found");
       }
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   }
 }
 
-export default connection(handler);
+export default handler;

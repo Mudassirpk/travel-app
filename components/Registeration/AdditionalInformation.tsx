@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import Divider from "../Divider";
 import { BsFileEarmarkImage, BsCalendar2Date } from "react-icons/bs";
 
-const AdditionalInformation = () => {
+type Props = {
+  toggleForm: Function;
+};
+
+const AdditionalInformation: React.FC<Props> = ({ toggleForm }) => {
   const [additionalFields, setAdditionalField] = useState({
     dob: "Year / Month / Day",
     gender: "",
+    location: "",
   });
   const [profilePicture, setProfilePicture] = useState<File>();
   const [isGenderSelected, setIsGenderSelected] = useState<boolean>(false);
@@ -14,27 +19,35 @@ const AdditionalInformation = () => {
     const targetElement: HTMLInputElement = e.target as HTMLInputElement;
     if (targetElement?.files) {
       if (targetElement.files[0]) setProfilePicture(targetElement.files[0]);
-      console.log(targetElement.files[0]);
     } else {
-      const id = targetElement.name;
+      const name = targetElement.name;
       const value = targetElement.value;
-      setAdditionalField({ ...additionalFields, [id]: value });
+      setAdditionalField({ ...additionalFields, [name]: value });
       console.log(additionalFields);
     }
   }
 
   async function submitAdditionalInformation(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (additionalFields.gender !== "" && profilePicture) {
+    const email = localStorage.getItem("signup_email");
+    if (
+      additionalFields.gender !== "" &&
+      profilePicture &&
+      additionalFields.location !== ""
+    ) {
       const formData = new FormData();
-      formData.append("text", JSON.stringify(additionalFields));
+      formData.append(
+        "text",
+        JSON.stringify({ ...additionalFields, email: email })
+      );
       formData.append("profile", profilePicture);
       const response = await fetch("/api/additional/", {
         method: "POST",
         body: formData,
       });
-
-      console.log(response.status);
+      if (response.status === 201) {
+        toggleForm();
+      }
     }
   }
 
@@ -113,6 +126,21 @@ const AdditionalInformation = () => {
             </span>
           ) : null}
         </div>{" "}
+        <label
+          htmlFor="location"
+          className="flex font-semibold flex-col text-2xl text-slate-800"
+        >
+          Location
+          <input
+            onChange={fillAdditionalFields}
+            value={additionalFields.location}
+            name="location"
+            type="text"
+            className="text-2xl my-2 px-4 py-2 border border-gray-400 rounded-xl"
+            required
+            placeholder="Location"
+          />
+        </label>
         <div className="w-full h-[200px] border border-slate-400 flex justify-center items-center rounded-lg">
           <label
             htmlFor="img"
@@ -133,11 +161,14 @@ const AdditionalInformation = () => {
             />
           </label>
         </div>
-        <button className="text-xl px-4 py-2 bg-blue-900 text-white rounded-xl hover:bg-blue-800 cursor-pointer">
+        <button
+          type="submit"
+          className="text-xl px-4 py-2 bg-blue-900 text-white rounded-xl hover:bg-blue-800 cursor-pointer"
+        >
           Submit
         </button>
         <button
-          type="submit"
+          onClick={() => toggleForm()}
           className="text-xl px-4 py-2 bg-gray-300 text-slate-900 rounded-xl hover:bg-gray-200 cursor-pointer"
         >
           Add later
