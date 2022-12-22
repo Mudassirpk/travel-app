@@ -1,18 +1,17 @@
 import Post from "./Post";
 import { useContext, useState, useEffect } from "react";
-
+import Loader from "../../../Helper/Loader";
 import dataContext from "./../../../Helper/dataContext";
 const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Array<object>>([]);
-
   const Data: any = useContext(dataContext);
   const { data, feedData, dataSetter } = Data;
+  
   useEffect(() => {
     setPosts(feedData);
-    console.log("from posts: ", feedData);
   }, [feedData]);
 
-  return posts ? (
+  return posts.length > 0 ? (
     <div className="flex-1 flex flex-col gap-16 px-5 xsm:px-0 mt-2">
       {posts.map((post: any) => (
         <Post
@@ -31,7 +30,7 @@ const Posts: React.FC = () => {
       ))}
     </div>
   ) : (
-    <p>You Cought up</p>
+    <Loader size={4} fill={true} wait={false} />
   );
 };
 

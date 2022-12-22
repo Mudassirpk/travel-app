@@ -36,7 +36,6 @@ handler.post(async (req: Express.Request, res: NextApiResponse) => {
     let body: any = req.body;
     const objectBody = JSON.parse(body.fields);
     let toBeUpdated = objectBody.toBeUpdated;
-    console.log(toBeUpdated);
 
     if (req.file) {
       toBeUpdated = {
@@ -48,15 +47,11 @@ handler.post(async (req: Express.Request, res: NextApiResponse) => {
         $push: { media: "/images/travellers/" + req.file.filename },
       };
     }
-    console.log("post file check");
-    const updatedTraveller = await Traveler.findByIdAndUpdate(
-      { _id: objectBody.id },
-      toBeUpdated,
-      { new: true }
-    );
-    console.log("new: ", updatedTraveller);
+    await Traveler.findByIdAndUpdate({ _id: objectBody.id }, toBeUpdated, {
+      new: true,
+    });
   } catch (err) {
-    console.log(err);
+    res.status(400).send(err);
   }
 });
 

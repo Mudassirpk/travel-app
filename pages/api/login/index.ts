@@ -38,4 +38,4 @@ const handler = async (req: Request, res: NextApiResponse<any>) => {
   }
 };
 
-export default connection(handler);
+export default handler;

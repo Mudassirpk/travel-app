@@ -29,7 +29,7 @@ handler.post(async (req: Express.Request, res: Express.Response) => {
           },
         },
       },
-      {new:true}
+      { new: true }
     );
 
     const poster_id = foundPost.publisher;
@@ -51,11 +51,15 @@ handler.post(async (req: Express.Request, res: Express.Response) => {
       }
     );
 
-    res.status(201).json( {text,
-            commentor_id: commentor,
-            post_id: commentedPost,
-            commentor_photo: commentor_person.profilePhoto,
-            commentor_name: commentor_person.name});
+    res
+      .status(201)
+      .json({
+        text,
+        commentor_id: commentor,
+        post_id: commentedPost,
+        commentor_photo: commentor_person.profilePhoto,
+        commentor_name: commentor_person.name,
+      });
   } catch (err) {
     res.status(400).send(err);
   }

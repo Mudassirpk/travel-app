@@ -8,11 +8,23 @@ type Props = {
 };
 
 import dataContext from "../../Helper/dataContext";
+import follow from './../../Helper/Follow'
+import Loader from './../../Helper/Loader'
 
 const Person: React.FC<Props> = ({ name, followers, id }) => {
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isLoading,setIsLoading] = useState<boolean>(false)
   const traveller: any = useContext(dataContext);
   const { data } = traveller;
+
+  async function followBack(){
+    setIsLoading(true)
+    const response = await follow(id,data._id);
+    if(response.status === 201){
+      setIsLoading(false)
+      setIsFollowing(true)
+    }
+  }
 
   useEffect(() => {
     if (data.following.includes(id)) {
@@ -36,15 +48,20 @@ const Person: React.FC<Props> = ({ name, followers, id }) => {
         </h1>
         <p className="text-xl text-slate-700">{followers} Followers</p>
       </div>
-      {isFollowing ? (
+      {
+        isLoading?<Loader size={2} />: <div>   {isFollowing ? (
         <p className="rounded-xl px-4 py-2 text-slate-800 bg-grey-300 font-semibold text-xl">
           Following
         </p>
       ) : (
-        <button className="cursor-pointer hover:bg-blue-700 rounded-xl px-4 py-2 text-white bg-blue-800 font-semibold text-xl">
+        <button onClick={followBack} className="cursor-pointer hover:bg-blue-700 rounded-xl px-4 py-2 text-white bg-blue-800 font-semibold text-xl">
           Follow back
         </button>
       )}
+      </div>
+      }
+     
+   
     </div>
   );
 };

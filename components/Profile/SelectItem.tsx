@@ -6,7 +6,7 @@ type Props = {
 const SelectItem: React.FC<Props> = ({ option, id }) => {
   return (
     <p
-      className={`radio-label text-center text-gray-800 px-[10px] cursor-pointer hover:text-gray-700 text-[16px]`}
+      className={`radio-label text-center text-gray-800 px-[10px] xsm:px-[5px] cursor-pointer hover:text-gray-700 text-[16px]`}
       id={id}
     >
       {option}

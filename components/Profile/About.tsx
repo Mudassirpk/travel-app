@@ -22,9 +22,9 @@ const About: React.FC = () => {
         <InfoBox heading="Gender" content={data.gender} />
         <InfoBox heading="Location" content={data.location} />
         <InfoBox heading="Joined" content="7 October 2022" />
-        <InfoBox heading="Posts" content={data.posts.length} />
-        <InfoBox heading="Followers" content={data.followers.length} />
-        <InfoBox heading="Following" content={data.following.length} />
+        <InfoBox heading="Posts" content={data.posts?.length} />
+        <InfoBox heading="Followers" content={data.followers?.length} />
+        <InfoBox heading="Following" content={data.following?.length} />
       </div>
     </div>
   );

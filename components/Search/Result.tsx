@@ -22,7 +22,7 @@ const Result: React.FC<Props> = ({ name, followers, id }) => {
   }
 
   useEffect(() => {
-    if (data.following.includes(id)) {
+    if (data.following?.includes(id)) {
       setFollowButton(true);
     }
   }, []);

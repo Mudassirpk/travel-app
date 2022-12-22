@@ -12,8 +12,8 @@ type Props = {
 
 const ProfileInformation: React.FC<Props> = ({ tranformValue }) => {
   return (
-    <section className="w-full flex gap-5 h-[100vh]">
-      <div className="flex-1 h-full overflow-hidden">
+    <section className="w-full  h-[100vh]">
+      <div className="w-full mx-auto h-full overflow-hidden">
         <div
           className="w-[500%] grid grid-cols-5 h-full transition-transform duration-100"
           style={{ transform: `translateX(${-tranformValue}%)` }}
@@ -56,9 +56,6 @@ const ProfileInformation: React.FC<Props> = ({ tranformValue }) => {
             <Media />
           </div>
         </div>
-      </div>
-      <div className="w-[300px] md:hidden">
-        <DestinationsTravelled />
       </div>
     </section>
   );

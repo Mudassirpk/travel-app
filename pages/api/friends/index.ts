@@ -10,9 +10,9 @@ handler.use(auth);
 
 handler.post(async (req: Request, res: NextApiResponse) => {
   const body: any = req.body;
-  console.log(body);
 
   try {
+    await connection()
     const friends = await Traveler.find({ _id: { $in: body.friends } });
     res.status(200).send(friends);
   } catch (err) {

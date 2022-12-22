@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Header/Header";
 import ProfileHead from "../components/Profile/ProfileHead";
-import Divider from "../components/Divider";
 import ProfileBody from "../components/Profile/ProfileBody";
 
 const User = () => {
@@ -13,9 +12,8 @@ const User = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main className="w-full">
+      <main className="w-[70%] mx-auto md:w-[80%] xsm:w-full">
         <ProfileHead />
-        <Divider customClass="mt-[14rem]" />
         <ProfileBody />
       </main>
     </div>

@@ -21,7 +21,7 @@ type Props = {
   viewer: string;
   likers: Array<string>;
   poster_image: string;
-  comments: Array<object>;
+  comments: Array<CommentType>;
 };
 
 type Comment = {
@@ -29,6 +29,8 @@ type Comment = {
   commentor_id: String;
   post_id: String;
 };
+
+import { CommentType } from "../../../types/types";
 
 // --- end types
 
@@ -53,12 +55,14 @@ const Post: React.FC<Props> = ({
     post_id: id,
   });
   const [loader, setLoader] = useState<boolean>(false);
+  const [likeLoader,setLikeLoader] = useState<boolean>(false);
 
-  const [post_comments, setComments] = useState<Array<object>>([]);
+  const [post_comments, setComments] = useState<Array<CommentType>>([]);
 
   const [_likes, set_likes] = useState<number>(likes);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   async function like() {
+    setLikeLoader(true)
     const emailAndtoken: any = localStorage.getItem("tapp_eAt");
     const { token } = JSON.parse(emailAndtoken);
     const response = await fetch("/api/home/like/", {
@@ -73,13 +77,14 @@ const Post: React.FC<Props> = ({
         liker: viewer,
       }),
     });
-    console.log(response);
     if (response.status === 201) {
       set_likes(_likes + 1);
       setIsLiked(true);
+      setLikeLoader(false)
     } else if (response.status === 409) {
       set_likes(_likes - 1);
       setIsLiked(false);
+      setLikeLoader(false)
     }
   }
 
@@ -87,15 +92,13 @@ const Post: React.FC<Props> = ({
     set_likes(likes);
     if (likers.includes(viewer)) {
       setIsLiked(true);
-      console.log(likers);
     }
-  }, []);
+  }, [likes]);
 
   // comments funtionality
   function fillComment(e: React.SyntheticEvent) {
     const target: HTMLInputElement = e.target as HTMLInputElement;
     setComment({ ...comment, text: target.value });
-    console.log(comment);
   }
 
   async function submitComment(e: React.SyntheticEvent) {
@@ -148,7 +151,7 @@ const Post: React.FC<Props> = ({
           </p>
           <p className="text-[12px] text-slate-700">2 days ago</p>
         </div>
-        <BsThreeDotsVertical className="text-[25px] text-slate-800 cursor-pointer hover:text-slate-700" />
+        
       </div>
       <div className="xsm:px-5">
         <p className="text-[14px] py-2 text-gray-800 rounded-lg">
@@ -172,7 +175,8 @@ const Post: React.FC<Props> = ({
       </div>
       {/*viewer's action e.g like and comment*/}
       <div className="py-2 flex gap-2 my-3 xsm:px-5">
-        <div className="flex gap-2 items-end px-5 py-3 rounded-[20px] bg-slate-300 hover:bg-white">
+      {
+        likeLoader?<Loader fill={false} size={2} wait={false} />:    <div className="flex gap-2 items-end px-5 py-3 rounded-[20px] hover:bg-white">
           <AiFillLike
             onClick={like}
             className={`text-[20px] cursor-pointer transition-transform hover:scale-125 ${
@@ -183,6 +187,8 @@ const Post: React.FC<Props> = ({
             {_likes}
           </span>
         </div>
+      }
+    
         {/* viewer's commenting section */}
         <form className="flex-1 px-3 py-3 rounded-3xl flex gap-3 bg-slate-300 items-center">
           <input
@@ -199,7 +205,7 @@ const Post: React.FC<Props> = ({
         {/* ---------------------------------- */}
       </div>
       <Comments isLoading={loader} comments={post_comments} />
-      <Divider customClass={null} />
+      <Divider customClass={"mt-4"} />
     </div>
   );
 };

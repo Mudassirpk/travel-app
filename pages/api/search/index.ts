@@ -13,4 +13,4 @@ const handler = async (req: Request, res: NextApiResponse) => {
   }
 };
 
-export default connection(handler);
+export default handler;

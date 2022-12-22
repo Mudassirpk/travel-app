@@ -10,10 +10,10 @@ const UserLogReg: React.FC = () => {
 
   return (
     <section className="w-full flex-col h-full flex items-center justify-center">
-      <h1 className="text-6xl font-semibold my-20 text-blue-900">
+      <h1 className="text-6xl text-center font-semibold my-20 text-blue-900">
         Welcome To TravelBook
       </h1>
-      <div className="w-[350px] h-auto bg-white shadow-xl shadow-slate-300  px-5 py-5">
+      <div className="w-[350px] rounded-xl overflow-hidden h-auto bg-white shadow-xl shadow-slate-300  px-5 py-5">
         {formtoggler ? (
           <SignUp toggleForm={toggleForm} />
         ) : (

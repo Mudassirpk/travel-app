@@ -6,6 +6,7 @@ import Traveler from "./../../database/Models/userModal";
 
 const handler = async (req: Express.Request, res: NextApiResponse<any>) => {
   if (req.method === "POST") {
+    await connection()
     try {
       const { name, email, password } = req.body;
       const hashedPassword = await bcryptjs.hash(password, 10);
@@ -28,4 +29,4 @@ const handler = async (req: Express.Request, res: NextApiResponse<any>) => {
   }
 };
 
-export default connection(handler);
+export default handler;

@@ -31,10 +31,7 @@ const Actions: React.FC = () => {
         >
           Share your travelling experience!
         </span>
-        <div className="px-4  py-2 my-5 text-center bg-red-400 rounded-[40px] text-2xl text-slate-200 cursor-pointer hover:bg-red-500">
-          <p className="xsm:hidden block">Add a premier</p>
-          <p className="xsm:block hidden">P</p>
-        </div>
+      
       </div>
       <Divider customClass={null} />
       {experienceModal ? (

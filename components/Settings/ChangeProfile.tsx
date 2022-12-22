@@ -30,7 +30,6 @@ const ChangeProfile: React.FC = () => {
     const target: HTMLInputElement = e.target as HTMLInputElement;
     const id = target.id;
     const value = target.value;
-    console.log(id, " : ", value);
     setUpdatedFields({ ...updatedFields, [id]: value });
   }
 
@@ -47,7 +46,6 @@ const ChangeProfile: React.FC = () => {
       form_data.append("newprofile", image);
     }
     if (token) {
-      console.log(form_data);
       const response = await fetch("/api/settings", {
         method: "post",
         headers: {
@@ -131,6 +129,9 @@ const ChangeProfile: React.FC = () => {
       </form>
       {isPreviewOpen ? (
         <PreviewModal
+          absolute={true}
+          custormClass={null}
+          innerFull={false}
           imageSelector={imageSelector}
           togglerPreview={togglePreview}
         />

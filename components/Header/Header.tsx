@@ -39,7 +39,7 @@ const Header: React.FC = () => {
       </div>
 
       <div
-        className={`flex-1 block xsm:${
+        className={`flex-1 z-50 block xsm:${
           searchPanel ? "" : "hidden"
         } flex mx-10 rounded-lg xsm:absolute xsm:bg-blue-900 xsm:top-[7rem] xsm:m-[0] xsm:w-[90%] xsm:left-[5%] xsm:p-[0] xsm:px-4 border overflow-hidden px-2 border-blue-900 items-center gap-2`}
       >
@@ -59,9 +59,7 @@ const Header: React.FC = () => {
           onClick={() => setSearchPanel(!searchPanel)}
           className="hidden xsm:inline"
         />
-        <div className="icon-hover">
-          <BsBell />
-        </div>
+       
         <div>
           <div
             onClick={() => setProfileDropdown(!profileDropdown)}

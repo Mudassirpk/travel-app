@@ -58,7 +58,7 @@ handler.post(async (request: Express.Request, res: NextApiResponse) => {
     const savedPost = await newPost.save();
     res.status(201).send(savedPost);
   } catch (err) {
-    console.log(err);
+    res.status(400).send(err)
   }
 });
 

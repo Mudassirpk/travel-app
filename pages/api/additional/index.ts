@@ -9,7 +9,7 @@ export const config = {
     bodyParser: false,
   },
 };
-
+import Express from "express";
 // types
 type FileNameCallback = (error: Error | null, filename: string) => void;
 
@@ -29,7 +29,7 @@ const handler = nextConnect(onError);
 
 handler.use(upload.single("profile"));
 
-handler.post(async (req: Request, res: NextApiResponse) => {
+handler.post(async (req: Express.Request, res: Express.Response) => {
   const body: any = req.body;
   const text = JSON.parse(body.text);
   try {
@@ -37,7 +37,7 @@ handler.post(async (req: Request, res: NextApiResponse) => {
       { email: text.email },
       {
         dob: text.dob,
-        profilePhoto: `/images/travellers/${req.file.filename}`,
+        profilePhoto: `/images/travellers/${req.file?.filename}`,
         gender: text.gender,
         location: text.location,
       },
@@ -47,7 +47,7 @@ handler.post(async (req: Request, res: NextApiResponse) => {
     await foundTraveller.save();
     res.status(201).send("ok");
   } catch (err) {
-    console.log(err);
+    res.status(400).send(err);
   }
 });
 

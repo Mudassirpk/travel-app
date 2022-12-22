@@ -6,7 +6,6 @@ const ProfileBody = () => {
   const [bodyTranformValue, setBodyTransformValue] = useState<number>(0);
 
   function transformBody(magnitude: number) {
-    console.log(magnitude);
     setBodyTransformValue(magnitude);
   }
 

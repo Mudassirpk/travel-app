@@ -29,7 +29,7 @@ const SelectMenu: React.FC<Props> = ({ transformAction }) => {
     <section>
       <div
         ref={selectionBar}
-        className="w-full pt-[10px] pb-[3px] cursor-pointer flex justify-start"
+        className="w-full flex-wrap pt-[10px] pb-[3px] cursor-pointer flex justify-start"
       >
         <SelectItem option="Experiences" id="0" />
         <SelectItem option="About" id="1" />
@@ -37,15 +37,7 @@ const SelectMenu: React.FC<Props> = ({ transformAction }) => {
         <SelectItem option="Following" id="3" />
         <SelectItem option="Media" id="4" />
       </div>
-      <div className="w-full relative">
-        <div
-          className="h-[2px] rounded-[100%] bg-blue-800 absolute transition-transform duration-4"
-          style={{
-            transform: `translateX(${transFormValue}px)`,
-            width: `${currentWidth}px`,
-          }}
-        ></div>
-      </div>
+     
     </section>
   );
 };

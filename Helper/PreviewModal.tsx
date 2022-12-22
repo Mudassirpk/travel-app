@@ -5,9 +5,18 @@ import { ImCross } from "react-icons/im";
 type Props = {
   togglerPreview: Function;
   imageSelector: Function;
+  custormClass: string | null;
+  absolute: boolean;
+  innerFull: boolean;
 };
 
-const PreviewModal: React.FC<Props> = ({ togglerPreview, imageSelector }) => {
+const PreviewModal: React.FC<Props> = ({
+  togglerPreview,
+  imageSelector,
+  custormClass,
+  absolute,
+  innerFull,
+}) => {
   const [previewImage, setPreviewImage] = useState<String>("");
   const [selectedImage, setSelectedImage] = useState<File>();
 
@@ -42,16 +51,19 @@ const PreviewModal: React.FC<Props> = ({ togglerPreview, imageSelector }) => {
     <section
       onClick={ExitPreviewModal}
       id="overlay"
-      className="absolute w-full z-10 h-full left-0 top-0 flex items-center justify-center"
+      className={`${
+        absolute ? "absolute" : ""
+      } w-full z-10 h-full left-0 top-0 flex items-center justify-center ${custormClass}`}
       style={{
         background: "rgba(0,0,0,0.4)",
       }}
     >
       <div
-        className="flex flex-col items-center rounded-lg gap-4 p-5 justify-center"
+        className={`
+        } flex flex-col items-center rounded-lg gap-4 p-5 justify-center`}
         style={{
-          width: "80%",
-          height: "auto",
+          width: innerFull ? "100%" : "80%",
+          height: innerFull ? "100%" : "auto",
           background: "white",
         }}
       >
@@ -90,13 +102,19 @@ const PreviewModal: React.FC<Props> = ({ togglerPreview, imageSelector }) => {
             height: "30rem",
           }}
         >
-          <div className="relative w-full h-full">
-            <Image
-              alt="preview"
-              className="object-cover"
-              src={previewImage ? (previewImage as string) : ""}
-              fill={true}
-            />
+          <div className="relative flex items-center justify-center w-full h-full">
+            {previewImage ? (
+              <Image
+                alt="preview"
+                className="object-cover"
+                src={previewImage ? (previewImage as string) : ""}
+                fill={true}
+              />
+            ) : (
+              <p className="text-2xl font-semibold text-slate-900">
+                No image chosen
+              </p>
+            )}
           </div>
         </div>
         <div className="w-full">

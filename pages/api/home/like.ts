@@ -16,7 +16,6 @@ handler.post(async (req: Request, res: NextApiResponse) => {
         { likes: body.currentLikes - 1, $pull: { likers: body.liker } },
         { new: true }
       );
-      console.log("after removal: ", removeLike);
       await removeLike.save();
       res.status(409).send("liked");
     } else {
@@ -26,11 +25,10 @@ handler.post(async (req: Request, res: NextApiResponse) => {
         { new: true }
       );
       const savedPost = await updatedPost.save();
-      console.log(savedPost);
+
       res.status(201).send(savedPost);
     }
   } catch (err) {
-    console.log(err);
     res.status(400).send(err);
   }
 });

@@ -16,7 +16,7 @@ export default function Registeration() {
 
   return isLoggedIn ? (
     <div className="h-screen w-full flex items-center justify-center">
-      <h1 className="text-4xl text-blue-900">
+      <h1 className="text-4xl text-center text-blue-900">
         You are already logged in redirecting to homepage ....
       </h1>
     </div>

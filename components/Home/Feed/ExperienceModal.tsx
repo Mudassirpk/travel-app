@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { BsFileEarmarkImage, BsChevronUp } from "react-icons/bs";
+
+// components imports
+import PreviewModal from "../../../Helper/PreviewModal";
+
 type Props = {
   modalToggler: Function;
 };
@@ -9,7 +13,7 @@ type Props = {
 import dataContext from "../../../Helper/dataContext";
 
 const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   const [postSaved, setPostSaved] = useState<boolean>(false);
   const traveller: any = useContext(dataContext);
@@ -18,6 +22,18 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
     location: "",
     experience: "",
   });
+
+  // image preview functionality
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState<boolean>(false);
+  function togglePreviewModal() {
+    setIsPreviewModalOpen(!isPreviewModalOpen);
+  }
+
+  function imageSetter(inputImage: File) {
+    setImage(inputImage);
+  }
+
+  // --- image preview functionality
 
   const [image, setImage] = useState<File>();
 
@@ -34,7 +50,6 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
     e.preventDefault();
 
     const emailAndToken = localStorage.getItem("tapp_eAt");
-    console.log(emailAndToken);
     if (emailAndToken) {
       const jsoneAt: any = JSON.parse(emailAndToken);
 
@@ -50,11 +65,10 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
             ...modalFields,
             email: jsoneAt.email,
             poster: data._id,
-            poster_image:data.profilePhoto
+            poster_image: data.profilePhoto,
           })
         );
 
-        console.log(formData.get("text"));
         const response = await fetch("/api/home/addpost/", {
           method: "POST",
           headers: {
@@ -67,7 +81,7 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
           setPostSaved(true);
           dataSetter(null, null, jsonResponse, "feed");
           setTimeout(modalToggler, 2000);
-          router.push('/')
+          router.push("/");
         }
       }
     }
@@ -106,19 +120,32 @@ const ExperienceModal: React.FC<Props> = ({ modalToggler }) => {
             placeholder="What you experienced?"
           />
         </label>
-        <div className="w-full h-[200px] border border-slate-400 flex justify-center items-center rounded-lg">
-          <label htmlFor="img" className="flex flex-col gap-2 text-center">
-            <div className="px-4 py-4 rounded-[50%] hover:bg-slate-300 cursor-pointer transition-colors duration-200">
-              <BsFileEarmarkImage className="text-3xl" />
-            </div>
-            <span className="text-xl text-slate-800 font-semibold">Photo</span>
-            <input
-              onChange={fillFormFields}
-              type="file"
-              id="img"
-              className="hidden"
+        <div
+          className={`w-full relative ${
+            isPreviewModalOpen ? "h-[400px]" : " h-[200px]"
+          } border border-slate-400 flex justify-center items-center rounded-lg`}
+        >
+          {isPreviewModalOpen ? (
+            <PreviewModal
+              innerFull={true}
+              absolute={false}
+              custormClass={null}
+              togglerPreview={togglePreviewModal}
+              imageSelector={imageSetter}
             />
-          </label>
+          ) : (
+            <div
+              onClick={togglePreviewModal}
+              className="flex flex-col gap-2 text-center"
+            >
+              <div className="px-4 py-4 rounded-[50%] hover:bg-slate-300 cursor-pointer transition-colors duration-200">
+                <BsFileEarmarkImage className="text-3xl" />
+              </div>
+              <span className="text-xl text-slate-800 font-semibold">
+                Photo
+              </span>
+            </div>
+          )}
         </div>
         <button
           type="submit"

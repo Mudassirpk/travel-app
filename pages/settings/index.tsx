@@ -15,7 +15,7 @@ const Settings: React.FC = () => {
             <h1 className="text-[2.4rem] font-bold text-[#0D141A]">Settings</h1>
             <Divider customClass={"my-3 bg-[#9BC3E9]"} />
           </div>
-          <div className="flex w-full justify-between flex-1 py-4">
+          <div className="flex w-full md:flex-col md:gap-5 justify-between flex-1 py-4">
             <ChangeProfile />
             <div className="h-full w-[1px] bg-[#9BC3E9] "></div>
             <ChangePassword />
