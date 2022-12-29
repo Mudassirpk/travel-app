@@ -37,7 +37,7 @@ export default function Friends() {
       </Head>
       <Header />
       <main className="flex">
-        <Left userName={data?.name} />
+        <Left />
         <FriendsSection friends={friends} />
       </main>
     </div>

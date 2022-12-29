@@ -20,7 +20,7 @@ const Person: React.FC<Props> = ({ name, followers, id }) => {
   async function followBack(){
     setIsLoading(true)
     const response = await follow(id,data._id);
-    if(response.status === 201){
+    if(response?.status === 201){
       setIsLoading(false)
       setIsFollowing(true)
     }
@@ -49,7 +49,7 @@ const Person: React.FC<Props> = ({ name, followers, id }) => {
         <p className="text-xl text-slate-700">{followers} Followers</p>
       </div>
       {
-        isLoading?<Loader size={2} />: <div>   {isFollowing ? (
+        isLoading?<Loader size={2} fill={false} wait={false} />: <div>   {isFollowing ? (
         <p className="rounded-xl px-4 py-2 text-slate-800 bg-grey-300 font-semibold text-xl">
           Following
         </p>
