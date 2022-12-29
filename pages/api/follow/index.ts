@@ -22,6 +22,7 @@ handler.post(async (req: Request, res: NextApiResponse) => {
 
     await to.save();
     await from.save();
+    res.status(201).send("followed");
   } catch (err) {
     res.status(400).send(err);
   }

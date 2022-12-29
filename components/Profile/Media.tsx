@@ -11,7 +11,7 @@ export default function Media() {
       {data.media
         ? data.media.map((medium: string) => {
             return (
-              <div className="relative w-full aspect-square hover:border hover:border-blue-900 cursor-pointer">
+              <div className="relative w-full aspect-square hover:border hover:border-blue-900 roun cursor-pointer">
                 <Image
                   src={medium}
                   alt="media"

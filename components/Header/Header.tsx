@@ -59,7 +59,7 @@ const Header: React.FC = () => {
           onClick={() => setSearchPanel(!searchPanel)}
           className="hidden xsm:inline"
         />
-       
+
         <div>
           <div
             onClick={() => setProfileDropdown(!profileDropdown)}

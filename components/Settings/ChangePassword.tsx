@@ -129,7 +129,7 @@ const ChangePassword: React.FC = () => {
             className="border px-2 py-1 outline-none border-[#2E3236] rounded-lg"
           />
         </label>
-        {isLoading ? <Loader size={2} /> : null}
+        {isLoading ? <Loader size={2} wait={true} fill={true} /> : null}
         {warning.state ? (
           <p
             className="text-2xl"

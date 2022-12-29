@@ -18,10 +18,10 @@ const Comment: React.FC<Props> = ({ content, name, commentor_image }) => {
         />
       </div>
       <div className="flex-1">
-        <p className="text-2xl mt-1 font-semibold cursor-pointer hover:underline">
+        <p className="text-2xl mt-1 font-semibold">
           {name}
         </p>
-        <p className="text-[12px] font-normaltext-slate-800">{content}</p>
+        <p className="text-2xl p-4 bg-[#DBEEEE] rounded-lg my-4 font-normaltext-slate-800 font-semibold">{content}</p>
       </div>
     </div>
   );

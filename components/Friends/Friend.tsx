@@ -16,7 +16,7 @@ const Friend: React.FC<Props> = ({ name, followers }) => {
         />
       </div>
       <div className="flex-1 flex flex-col gap-1 justify-center">
-        <p className="text-xl font-semibold text-slate-800 hover:underline w-max cursor-pointer">
+        <p className="text-xl font-semibold text-slate-800  w-max ">
           {name}
         </p>
         <p>{followers} Followers</p>
