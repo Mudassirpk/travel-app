@@ -9,10 +9,11 @@ export default function Media() {
   return (
     <section className="w-full grid grid-cols-5 gap-4 py-4">
       {data.media
-        ? data.media.map((medium: string) => {
+        ? data.media.map((medium: string,index:number) => {
             return (
               <div className="relative w-full aspect-square hover:border hover:border-blue-900 roun cursor-pointer">
                 <Image
+                key={index}
                   src={medium}
                   alt="media"
                   fill={true}
